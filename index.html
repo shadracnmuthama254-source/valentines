@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vicky, Will You Be My Valentine? 💖</title>
+
+<style>
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background:
+        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+        url("https://images.unsplash.com/photo-1518895949257-7621c3c786d7");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: white;
+    text-align: center;
+}
+
+.card {
+    background: rgba(255,255,255,0.18);
+    padding: 30px 20px;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+    max-width: 90%;
+    width: 400px;
+    backdrop-filter: blur(10px);
+    z-index: 2;
+}
+
+h1 { font-size: 2rem; margin-bottom: 10px; }
+
+.poem {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 20px 0;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 8px;
+    transition: transform 0.2s;
+}
+
+button:hover { transform: scale(1.07); }
+
+.yes { background: #ff2d75; color: white; }
+.no { background: white; color: #ff2d75; position: absolute; }
+.music { background: rgba(255,255,255,0.3); color: white; }
+.whatsapp { background: #25D366; color: white; }
+
+.signature {
+    margin-top: 20px;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.hearts span {
+    position: absolute;
+    animation: float 6s linear infinite;
+    font-size: 20px;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts"></div>
+
+<div class="card" id="card">
+    <h1>Vicky 💕</h1>
+
+    <div class="poem">
+        Roses may fade, but my feelings won’t,<br>
+        Loving you deeply is something I don’t confront.<br>
+        In your smile, my calm I find,<br>
+        In your love, my heart aligns.<br><br>
+
+        This Valentine’s and all days too,<br>
+        I choose a life that starts with you.<br>
+        So here I stand, heart open wide,<br>
+        Hoping you’ll be my Valentine. 💖
+    </div>
+
+    <h1>Will you be my Valentine? 💘</h1>
+
+    <div style="position: relative; height: 60px;">
+        <button class="yes" onclick="accept()">YES 💕</button>
+        <button class="no" id="noBtn">No 🙈</button>
+    </div>
+
+    <button class="music" onclick="playMusic()">Play Music 🎶</button>
+    <button class="whatsapp" onclick="shareWhatsApp()">Share on WhatsApp 💚</button>
+
+    <div class="signature">
+        — From Shadrac Muthama ❤️
+    </div>
+</div>
+
+<!-- YouTube Player: All of Me - John Legend -->
+<iframe id="player" width="0" height="0"
+src="https://www.youtube.com/embed/450p7goxZqg?enablejsapi=1&autoplay=1"
+frameborder="0" allow="autoplay"></iframe>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+let player;
+
+function playMusic() {
+    if (!player) {
+        player = new YT.Player('player', {
+            events: {
+                'onReady': e => e.target.playVideo()
+            }
+        });
+    } else {
+        player.playVideo();
+    }
+}
+
+function accept() {
+    document.getElementById("card").innerHTML = `
+        <h1>She Said YES 💖🎉</h1>
+        <p style="font-size:1.1rem;">
+            Vicky, thank you for choosing me.<br>
+            You just made this Valentine unforgettable ❤️<br><br>
+            I can’t wait to build beautiful memories with you.
+        </p>
+        <h2>Happy Valentine’s Day 💘</h2>
+        <div class="signature">— From Shadrac Muthama</div>
+    `;
+}
+
+function shareWhatsApp() {
+    const message = encodeURIComponent(
+        "Hey Vicky 💕🌹\n\nI made something special just for you.\n\nWill you be my Valentine? 💘\n\nTap the link below ❤️👇"
+    );
+    const link = encodeURIComponent(window.location.href);
+    window.open(`https://wa.me/?text=${message}%0A${link}`, "_blank");
+}
+
+// Playful NO button
+const noBtn = document.getElementById('noBtn');
+noBtn.addEventListener('mouseenter', () => {
+    noBtn.style.left = Math.random() * 220 + 'px';
+    noBtn.style.top = Math.random() * 40 + 'px';
+});
+
+// Floating hearts
+function createHearts() {
+    const heart = document.createElement('span');
+    heart.innerHTML = '❤️';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+    document.querySelector('.hearts').appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}
+setInterval(createHearts, 500);
+</script>
+
+</body>
+</html>
